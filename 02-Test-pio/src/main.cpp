@@ -1,9 +1,7 @@
-
-#include "variant_BLACKPILL_F411CE.h"
+#include "serial.hpp"
 #include <Arduino.h>
 #include <cstddef>
 #include <led.hpp>
-#include <USBSerial.h>
 
 #include <FreeRTOS.h>
 #include <task.h>
@@ -17,11 +15,16 @@ void setup() {
     NULL
   );
 
+  xTaskCreate(vTask_Serial, 
+    "Serial Task", 
+    256, 
+    NULL, 
+    1, 
+    NULL
+  );
+
   vTaskStartScheduler();
 }
 
 void loop() {
-  // SerialUSB.begin();
-  // SerialUSB.println("Hello, world!");
-
 }
