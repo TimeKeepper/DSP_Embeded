@@ -3,4 +3,5 @@
 **/.vscode
 **/.pio
 **/build
+**/compile_commands.json
 01-DEMO/build/Debug
