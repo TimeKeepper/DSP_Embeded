@@ -2,9 +2,12 @@
 #include <Arduino.h>
 #include <cstddef>
 #include <led.hpp>
+#include <btn.hpp>
 
 #include <FreeRTOS.h>
 #include <task.h>
+
+btn btn({{PA0, GND}});
 
 void setup() {
   xTaskCreate(vTask_Led, 

@@ -1,5 +1,5 @@
+#include <atomic>
 #include <serial.hpp>
-
 #include <SimpleSerialShell.h>
 #include <USBSerial.h>
 
@@ -89,6 +89,13 @@ int segment(int argc, char **argv) {
     return 0;
 }
 
+int show(int argc, char **argv) {
+    for(auto& btn_state : btn_states) {
+        PRINT(F("Button state: "), btn_state->load());
+    }
+    return 0;
+}
+
 void vTask_Serial(void *pvParameters) {
     SerialUSB.begin(115200);
 
@@ -96,6 +103,7 @@ void vTask_Serial(void *pvParameters) {
 
     shell.addCommand(F("sayHello"), hello_world);
     shell.addCommand(F("segment"), segment);
+    shell.addCommand(F("show"), show);
 
     while (1) {
         shell.executeIfInput();
