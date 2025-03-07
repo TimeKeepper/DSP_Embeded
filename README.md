@@ -22,7 +22,7 @@
 ```bash
 pio platform install file://path/to/zip
 ```
-- 等待他安装完platform后会安装调试器（1G左右，非常慢，但你至少能看到进度条了）
+- 等待他安装完platform后会安装编译器和std lib（1G左右，非常慢，但你至少能看到进度条了）
 
 ## LSP
 若要生成compiele_commands.json文件，需要在CmakeLists.txt中添加
