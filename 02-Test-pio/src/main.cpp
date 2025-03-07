@@ -1,33 +1,27 @@
+
+#include "variant_BLACKPILL_F411CE.h"
 #include <Arduino.h>
-#include <cassert>
-#include <vector>
+#include <cstddef>
+#include <led.hpp>
+#include <USBSerial.h>
 
+#include <FreeRTOS.h>
+#include <task.h>
 
-
-class flow_led {
-  public:
-    flow_led(std::vector<uint32_t> leds) : _leds(leds) {
-      assert(!_leds.size());
-      for (auto led : _leds) {
-        pinMode(led, OUTPUT);
-      }
-    }
-
-    void toggle(void) {
-      for (auto led : _leds) {
-        digitalWrite(led, !digitalRead(led));
-      }
-    }
-
-  private:
-    std::vector<uint32_t> _leds;
-};
-
-flow_led flow({LED_BUILTIN});
 void setup() {
+  xTaskCreate(vTask_Led, 
+    "Led Task", 
+    128, 
+    (void*)(new flow_led({LED_BUILTIN})), 
+    1, 
+    NULL
+  );
+
+  vTaskStartScheduler();
 }
 
 void loop() {
-  flow.toggle();
-  delay(1000);
+  // SerialUSB.begin();
+  // SerialUSB.println("Hello, world!");
+
 }
