@@ -1,4 +1,6 @@
 .metadata
-01-DEMO/.cache/clangd/index
-01-DEMO/.vscode
+**/.cache
+**/.vscode
+**/.pio
+**/build
 01-DEMO/build/Debug
