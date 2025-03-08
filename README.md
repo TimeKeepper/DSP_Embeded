@@ -40,3 +40,8 @@ CompileFlags:
 pio run -t compiledb
 ```
 还没完，pio默认不会包含工具链的头文件，这导致clangd不能完整进行代码提示，std使用困难，似乎每个人都觉得这很蠢，除了pio维护者，因此一个23年就提出的issue，24年就提出的pr至今依旧无人问津，我们根据这个pr<https://github.com/platformio/platformio-core/pull/4937>进行修改，现在你只需要将本工程中的platformio文件覆盖复制到你的`${USERPROFILE}/.platformio/penv/Lib/site-packages/`下就可以了
+然后运行
+```bash
+pio run -t compiledbtc
+```
+就能生成包含toolchain的compile_commands.json
