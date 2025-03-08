@@ -12,7 +12,6 @@
 class btn {
 public:
     btn(std::vector<std::pair<uint32_t, bool>> btns);
-    static std::vector<std::function<void(void)>> _interrupts;
 };
 
 #endif

@@ -6,14 +6,14 @@
 
 std::vector<std::unique_ptr<std::atomic<bool>>> btn_states;
 
-std::vector<std::function<void(void)>> btn::_interrupts;
+static std::vector<std::function<void(void)>> _interrupts;
 
 btn::btn(std::vector<std::pair<uint32_t, bool>> btns) {
     uint32_t index = 0;
     for (auto btn : btns) {
         btn_states.push_back(std::make_unique<std::atomic<bool>>(false));
-        _interrupts.push_back([]() {
-            btn_states[0]->store(true);
+        _interrupts.push_back([index]() {
+            btn_states[index]->store(true);
         });
 
         pinMode(btn.first, 
