@@ -23,12 +23,15 @@ int hello_world(int argc, char **argv) {
     SerialUSB.print("Hello, ");
 
     auto lastArg = argc - 1;
-    for ( int i = 1; i < argc; i++) {
-
+    for (int i = 1; i < argc; i++) {
         shell.print(argv[i]);
 
         if (i < lastArg)
             shell.print(F(" "));
+    }
+
+    if (argc == 1) {
+        shell.print(F("World"));
     }
 
     shell.println("!");
