@@ -36,35 +36,16 @@ int hello_world(int argc, char **argv) {
     return 0;
 }
 
-#include <malloc.h>
-extern "C" char *sbrk(int i);
-/* Use linker definition */
-extern char _end;
-
-extern char _ebss;
-extern char _sbss;
-
-extern char _edata;
-extern char _sdata;
-
-extern char _estack;
-extern char _Min_Stack_Size;
-
-static char *ramstart = &_sdata;
-static char *ramend = &_estack;
-static char *minSP = (char*)(ramend - &_Min_Stack_Size);
+#include <Mem.hpp>
 
 int segment(int argc, char **argv) {
-    char *heapend = (char*)sbrk(0);
-    char * stack_ptr = (char*)__get_MSP();
     struct mallinfo mi = mallinfo();
 
-    int	data_size	=	(int)&_edata - (int)&_sdata;
-    int	bss_size	=	(int)&_ebss - (int)&_sbss;
+    char *heapend = (char*)sbrk(0);
     int heap_end 	= 	(int)heapend;
-    
     int	heap_size	=	heap_end - (int)&_ebss;
-    int	stack_size	=	_Min_Stack_Size;
+
+    int	stack_size	=	(int)_Min_Stack_Size;
     int	available	=	(int)&ramend - (int)&ramstart;
 
     available	-=	data_size + bss_size + heap_size + stack_size;
