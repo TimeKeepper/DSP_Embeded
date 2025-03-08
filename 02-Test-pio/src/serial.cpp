@@ -2,6 +2,9 @@
 #include <serial.hpp>
 #include <SimpleSerialShell.h>
 #include <USBSerial.h>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 void PRINT (const __FlashStringHelper *a, int b = -1, const __FlashStringHelper * c = NULL)
 {
@@ -89,10 +92,42 @@ int segment(int argc, char **argv) {
     return 0;
 }
 
-int show(int argc, char **argv) {
-    for(auto& btn_state : btn_states) {
-        PRINT(F("Button state: "), btn_state->load());
+#include <ADC.hpp>
+
+Adc adc;
+
+int read(int argc, char **argv) {
+    std::vector<std::string> args(argv + 1, argv + argc);
+
+    const std::unordered_map<std::string, std::function<void(std::vector<std::string>)>> handlers = {
+        {"b", [](std::vector<std::string> args) {
+            for(auto& btn_state : btn_states) {
+                PRINT(F("Button state: "), btn_state->load());
+            }
+        }},
+
+        {"a", [](std::vector<std::string> args) {
+            switch(args[0][0]){
+                case 'v':
+                    shell.print(F("ADC voltage: "));
+                    shell.println(adc.read_voltage());
+                    break;
+                case 'r':
+                    shell.print(F("ADC raw: "));
+                    shell.println(adc.read());
+                    break;
+                default:
+                    return;
+            }
+        }}
+    };
+
+    auto it = handlers.find(args[0]);
+    if (it != handlers.end()) {
+        args.erase(args.begin());
+        it->second(args);
     }
+
     return 0;
 }
 
@@ -103,7 +138,7 @@ void vTask_Serial(void *pvParameters) {
 
     shell.addCommand(F("sayHello"), hello_world);
     shell.addCommand(F("segment"), segment);
-    shell.addCommand(F("show"), show);
+    shell.addCommand(F("r"), read);
 
     while (1) {
         shell.executeIfInput();

@@ -3,7 +3,7 @@
 ## 初始化
 - 安装vscode stm32extension
 - 安装STM32Cube MX、IDE、CLT、FINDER、Programer
-- 在extension设置中天机路径
+- 在extension设置中添加路径
 
 ## 添加新工程
 - 打开Cube MX配置完成、以Cmake工程生成
@@ -32,10 +32,8 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ```
 Compile_commands.json默认生成在build中，在根目录下创建.clangd文件指定路径
 ```
-{
 CompileFlags:
     CompilationDatabase: build\Debug
-}
 ```
 对于pio来说，需要在pio cli下运行
 ```bash
