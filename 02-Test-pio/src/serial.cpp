@@ -45,31 +45,37 @@ int segment(int argc, char **argv) {
     struct mallinfo mi = mallinfo();
 
     char *heapend = (char*)sbrk(0);
-    int heap_end 	= 	(int)heapend;
-    int	heap_size	=	heap_end - (int)&_ebss;
+    uint32_t heap_end 	= 	(uint32_t)heapend;
+    uint32_t	heap_size	=	heap_end - (uint32_t)&_ebss;
 
-    int	stack_size	=	(int)_Min_Stack_Size;
-    int	available	=	(int)&ramend - (int)&ramstart;
+    uint32_t	stack_size	=	(uint32_t)_Min_Stack_Size;
+    uint32_t	available	=	minSP - heap_end;
 
     available	-=	data_size + bss_size + heap_size + stack_size;
 
-    PRINT( F( "+----------------+ " ),        (int)_sdata,  F(" (__data_start)"));
-    PRINT( F( "+      data      +" ));
-    PRINT( F( "+    variables   + size = " ), data_size);
-    PRINT( F( "+----------------+ " ),        (int)&_edata, F(" (__data_end / __bss_start)"));
-    PRINT( F( "+      bss       +" ));
-    PRINT( F( "+    variables   + size = " ), bss_size);
-    PRINT( F( "+----------------+ " ),        (int)&_ebss,  F(" (__bss_end / __heap_start)"));
+    PRINT( F( "+----------------+ " ),        (uint32_t)&_sdata,  F(" (__data_start)"));
+    PRINT( F( "+                +" ));
+    PRINT( F( "+      data      + size = " ), data_size);
+    PRINT( F( "+                +" ));
+    PRINT( F( "+----------------+ " ),        (uint32_t)&_edata, F(" (__data_end / __bss_start)"));
+    PRINT( F( "+                +" ));
+    PRINT( F( "+      bss       + size = " ), bss_size);
+    PRINT( F( "+                +" ));
+    PRINT( F( "+----------------+ " ),        (uint32_t)&_ebss ,  F(" (__bss_end / __heap_start)"));
+    PRINT( F( "+                +" ));
     PRINT( F( "+      heap      + size = " ), heap_size);
-    PRINT( F( "+----------------+ " ),        (int)heap_end,    F(" (__brkval if not 0, or __heap_start)"));
+    PRINT( F( "+                +" ));
+    PRINT( F( "+----------------+ " ),        heap_end,    F(" (__brkval if not 0, or __heap_start)"));
     PRINT( F( "+                +" ));
     PRINT( F( "+                +" ));
     PRINT( F( "+   FREE RAM     + size = " ), available);
     PRINT( F( "+                +" ));
     PRINT( F( "+                +" ));
-    PRINT( F( "+----------------+ " ),        (int)minSP,   F(" (SP)"));
+    PRINT( F( "+----------------+ " ),        minSP,   F(" (SP)"));
+    PRINT( F( "+                +" ));
     PRINT( F( "+     stack      + size = " ), stack_size);
-    PRINT( F( "+----------------+ " ),        (int)&ramend, F(" (RAMEND / __stack)"));
+    PRINT( F( "+                +" ));
+    PRINT( F( "+----------------+ " ),        ramend, F(" (RAMEND / __stack)"));
     shell.println();
     shell.println();
 

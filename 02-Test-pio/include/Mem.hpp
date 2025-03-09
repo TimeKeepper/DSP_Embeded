@@ -18,13 +18,13 @@ extern char _sdata;
 extern char _estack;
 extern char _Min_Stack_Size;
 
-const int32_t ramstart = (int32_t)&_sdata;
-const int32_t ramend = (int32_t)&_estack;
-const int32_t minSP = (int32_t)(ramend) - (int32_t)&_Min_Stack_Size;
+const uint32_t ramstart = (uint32_t)&_sdata;
+const uint32_t ramend = (uint32_t)&_estack;
+const uint32_t minSP = (uint32_t)(ramend) - (uint32_t)&_Min_Stack_Size;
 
-const int32_t *stack_ptr = (int32_t *)__get_MSP();
+const uint32_t *stack_ptr = (uint32_t *)__get_MSP();
 
-const int32_t data_size = (int32_t)&_edata - (int32_t)&_sdata;
-const int32_t bss_size = (int32_t)&_ebss - (int32_t)&_sbss;
+const uint32_t data_size = (uint32_t)&_edata - (uint32_t)&_sdata;
+const uint32_t bss_size = (uint32_t)&_ebss - (uint32_t)&_sbss;
 
 #endif
