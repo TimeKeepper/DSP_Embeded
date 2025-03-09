@@ -24,6 +24,27 @@ pio platform install file://path/to/zip
 ```
 - 等待他安装完platform后会安装编译器和std lib（1G左右，非常慢，但你至少能看到进度条了）
 
+## 添加rust工程
+参考<https://logiase.github.io/The-Embedded-Rust-Book-CN/intro/index.html>
+- 这简直酷毙了
+- 安装rust
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh # 安装rust
+rustup target add thumbv6m-none-eabi
+rustup target add thumbv7m-none-eabi
+rustup target add thumbv7em-none-eabi
+rustup target add thumbv7em-none-eabihf
+rustup target add thumbv8m.base-none-eabi
+rustup target add thumbv8m.main-none-eabi
+rustup target add thumbv8m.main-none-eabihf # 安装交叉编译工具链
+
+cargo install cargo-binutils
+rustup component add llvm-tools-preview 
+cargo install cargo-generate # 项目构建与生成
+```
+按照教程安装gcc和openocd\
+TODO
+
 ## LSP
 若要生成compiele_commands.json文件，需要在CmakeLists.txt中添加
 ```cmake
