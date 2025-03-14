@@ -8,6 +8,7 @@
 
 #include <FreeRTOS.h>
 #include <task.h>
+#include <Wire.h>
 
 // extern std::vector<std::unique_ptr<std::atomic<bool>>> btn_states;
 
