@@ -1,12 +1,12 @@
 #include <AHT20.hpp>
 
 aht20::aht20(void) {
-    Wire.setSCL(PB13);
-    Wire.setSDA(PB14);
+    // Wire.setSCL(PB13);
+    // Wire.setSDA(PB14);
 
-    Wire.begin();
+    // Wire.begin();
 
-    // _aht.begin(&Wire);
+    _aht.begin();
 }
 
 aht20::~aht20(void) {

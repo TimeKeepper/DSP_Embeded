@@ -21,6 +21,8 @@ private:
 
 void vTask_Led(void *pvParameters);
 
+#define LED1_Local PB1
+
 #define LED1 PC13
 #define LED2 PC14
 #define LED3 PC15
